@@ -2,14 +2,21 @@ name: Push Pull Request To Main
 on :
     push:
         branches:
-            - main
             - "Feature/**" # Trigger on pushes to feature branches
+            - "Bugfix/**" # Trigger on pushes to bugfix branches
+            - "Hotfix/**" # Trigger on pushes to hotfix branches
+            - "Release/**" # Trigger on pushes to release branches
+            - "Refactor/**" # Trigger on pushes to refactor branches
+            - "refs/**" # Trigger on pushes to refs branches
+            - "Test/**" # Trigger on pushes to test branches
         paths:
             - "src/**/*.ts" # Trigger only on changes to TypeScript files at src directory
             - ".github/workflows/push-pr.yml" # Trigger on changes to the workflow file itself
     pull_request:
         branches:
             - main
+            - develop
+            - production
         paths:
             - "src/**/*.ts" # Trigger only on changes to TypeScript files at src directory
             - ".github/workflows/push-pr.yml" # Trigger on changes to the workflow file itself
