@@ -1,0 +1,36 @@
+name: Push Pull Request To Main
+on :
+    push:
+        branches:
+            - main
+            - "Feature/**" # Trigger on pushes to feature branches
+        paths:
+            - "src/**/*.ts" # Trigger only on changes to TypeScript files at src directory
+    pull_request:
+        branches:
+            - main
+        paths:
+            - "src/**/*.ts" # Trigger only on changes to TypeScript files at src directory
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.x' # Use the latest LTS Node.js version for better compatibility
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Run tests
+              run: npm test
+            - name : Lint code
+              run: npm run lint
+            - name: "e2e tests"
+              run: npm run test:e2e
+            - name: Build project
+              run: npm run build
