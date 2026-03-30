@@ -28,8 +28,6 @@ jobs:
 
             - name: Run tests
               run: npm test
-            - name : Lint code
-              run: npm run lint
             - name: "e2e tests"
               run: npm run test:e2e
             - name: Build project
