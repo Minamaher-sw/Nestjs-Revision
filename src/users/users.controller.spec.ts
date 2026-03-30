@@ -14,6 +14,7 @@ describe('UsersController', () => {
     getUsers: jest.fn(),
     getUserById: jest.fn(),
     createUser: jest.fn(),
+    deleteUser: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -234,6 +235,41 @@ describe('UsersController', () => {
       expect(callArgs).toHaveProperty('message');
       expect(callArgs).toHaveProperty('user');
       expect(callArgs.user).toEqual(newUserDto);
+    });
+  });
+  describe('deleteUser', () => {
+    it('should delete a user and return success message', () => {
+      const mockResponse = {
+        json: jest.fn(),
+        status: jest.fn().mockReturnThis(),
+      } as any;
+      mockUsersService.deleteUser.mockReturnValue(true);
+
+      controller.deleteUser('uuid1', mockResponse);
+
+      expect(mockUsersService.deleteUser).toHaveBeenCalledWith('uuid1');
+      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'User deleted successfully' });
+    });
+
+    it('should return not found message when user does not exist', () => {
+      const mockResponse = {
+        json: jest.fn(),
+        status: jest.fn().mockReturnThis(),
+      } as any;
+      mockUsersService.deleteUser.mockReturnValue(false);
+      controller.deleteUser('non-existent-id', mockResponse);
+      expect(mockUsersService.deleteUser).toHaveBeenCalledWith('non-existent-id');
+      expect(mockResponse.status).toHaveBeenCalledWith(404);
+      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'User not found' });
+    });
+
+    it('should call deleteUser with correct id', () => {
+      const mockResponse = {
+        json: jest.fn(),
+        status: jest.fn().mockReturnThis(),
+      } as any;
+      controller.deleteUser('uuid2', mockResponse);
+      expect(mockUsersService.deleteUser).toHaveBeenCalledWith('uuid2');
     });
   });
 });

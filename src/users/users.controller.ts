@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, Post, Req, Res, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, Post, Req, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import type { Request, Response } from 'express';
 import { CreateUserDto } from './Dto/create-user.dto';
@@ -29,5 +29,14 @@ export class UsersController {
             user,
         });
     }
-}
 
+    @Delete(':id')
+    deleteUser(@Param("id", ConvertIntPipe) id: string, @Res() res: Response): void {
+        const isDeleted = this.userService.deleteUser(id);
+        if (isDeleted) {
+            res.json({ message: 'User deleted successfully' });
+        } else {
+            res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found' });
+        }
+    }
+}

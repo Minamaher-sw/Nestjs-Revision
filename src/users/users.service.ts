@@ -25,4 +25,12 @@ export class UsersService {
         return newUser;
     }
 
+    deleteUser(id: string): boolean {
+        const index = this.users.findIndex(user => user.id === id);
+        if (index !== -1) {
+            this.users.splice(index, 1);
+            return true;
+        }     return false;
+    }
+
 }

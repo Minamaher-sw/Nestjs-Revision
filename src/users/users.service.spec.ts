@@ -94,4 +94,21 @@ describe('UsersService', () => {
       expect(result).toEqual(newUser);
     });
   });
+
+  describe('deleteUser', () => {
+    it('should delete a user by id', () => {
+      const newUser = { id: 'uuid8', name: 'Delete User', age: 30 };
+      service.createUser(newUser);
+      const isDeleted = service.deleteUser('uuid8');
+
+      expect(isDeleted).toBe(true);
+      const deletedUser = service.getUserById('uuid8');
+      expect(deletedUser).toBeUndefined();
+    });
+
+    it('should return false when trying to delete a non-existent user', () => {
+      const isDeleted = service.deleteUser('non-existent-id');
+      expect(isDeleted).toBe(false);
+    });
+  });
 });

@@ -5,6 +5,7 @@ on:
             - main
             # Optionally, you can specify other branches or tags to trigger the workflow
 jobs:
+  # This job will run on the latest version of Ubuntu and will perform the following steps:
     build:
         runs-on: ubuntu-latest
         steps:
