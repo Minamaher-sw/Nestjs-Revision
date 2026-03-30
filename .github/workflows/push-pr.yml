@@ -11,6 +11,7 @@ on :
             - main
         paths:
             - "src/**/*.ts" # Trigger only on changes to TypeScript files at src directory
+            - ".github/workflows/push-pr.yml" # Trigger on changes to the workflow file itself
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -28,6 +29,8 @@ jobs:
 
             - name: Run tests
               run: npm test
+            - name : Lint code
+              run: npm run lint
             - name: "e2e tests"
               run: npm run test:e2e
             - name: Build project
