@@ -1,0 +1,11 @@
+name: Build and Test
+on:
+    push:
+        branches:
+            - main
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print welcome message
+              run: echo "Welcome to the Build and Test Workflow!"
