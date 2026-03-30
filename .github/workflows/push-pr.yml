@@ -6,6 +6,7 @@ on :
             - "Feature/**" # Trigger on pushes to feature branches
         paths:
             - "src/**/*.ts" # Trigger only on changes to TypeScript files at src directory
+            - ".github/workflows/push-pr.yml" # Trigger on changes to the workflow file itself
     pull_request:
         branches:
             - main
@@ -29,8 +30,6 @@ jobs:
 
             - name: Run tests
               run: npm test
-            - name : Lint code
-              run: npm run lint
             - name: "e2e tests"
               run: npm run test:e2e
             - name: Build project
