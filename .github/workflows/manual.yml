@@ -15,4 +15,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: deploy aoolication
-        run: echo "Deploy The App on ${{inputs.environment}}"
+        run: echo "Deploy The App on ${{github.event.inputs.environment}}"
