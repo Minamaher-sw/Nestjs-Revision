@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - testing
+          - production
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy aoolication
+        run: echo "Deploy The App on ${{inputs.environment}}"
